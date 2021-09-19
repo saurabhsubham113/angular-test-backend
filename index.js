@@ -6,6 +6,7 @@ const app = express()
 app.use(cors('*'))
 
 app.get('/api/json', (req, res) => {
+
     const page = parseInt(req.query.page)
     const limit = 10
 
@@ -15,7 +16,10 @@ app.get('/api/json', (req, res) => {
     const result = {}
     result.count = data.user.length
     result.user = data.user.slice(startLimit, endLimit)
-    res.json(result)
+    if (page)
+        return res.json(result)
+
+    return res.json(data.user)
 
 })
 
